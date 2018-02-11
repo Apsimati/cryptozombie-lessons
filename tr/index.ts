@@ -1,5 +1,6 @@
 // TODO: Shouldn't have to import stuff manually here, should just load all .md
 // files from the relevant locations... probably need to do that via webpack.
+
 // lesson 1
 import l1_overview from './1/00-overview.md'
 import datatypes from './1/datatypes.md'
@@ -71,6 +72,7 @@ import l4_complete from './4/lessoncomplete.md'
 
 // chapterList is an ordered array of chapters. The order represents the order of the chapters.
 // chapter index will be 1-based and not zero-based. First chapter is 1
+
 export default {
   1: [
     l1_overview,
