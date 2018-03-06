@@ -1,15 +1,15 @@
 ---
-title: Advanced Solidity Concepts
-header: "Lesson 3: Advanced Solidity Concepts"
+title: Gelişmiş Solidity Kavramları
+header: "Ders 3: Gelişmiş Solidity Kavramları"
 roadmap: roadmap3.png
 ---
 
-Grr... I just can't slow you down, can I? Your Solidity skills are formidable, human...
+Grr... Seni yavaşlatamıyorum, yapabiliyor muyum? Solidity yeteneklerin hayranlık uyandırıcı, insan...
 
-Now that you've got some experience coding Solidity under your belt, we're going to dive into some of the more technical aspects of Ethereum development.
+Kemerinin altında biraz Solidity kodlama tecrübesi edindiğine göre, Ethereum geliştirmenin daha teknik yönlerinin bazılarının içine dalacağız. 
 
-This lesson will be a bit less flashy (sorry, no plot twists!). But you’ll learn some really important concepts that will take you closer to building real DApps — things like **contract ownership, gas costs, code optimization, and security**.
+Bu ders daha az gösterişli olacak (üzgünüm, sürpriz son yok!). Ama sizi gerçek DApps oluşturmaya daha da yaklaştıracak gerçekten önemli kavramlar öğreneceksiniz — **kontrat sahipliği, gaz giderleri, kod optimizasyonu, ve güvenlik** gibi şeyler.
 
-You've been warned — no kitties and rainbows in Lesson 3!
+Uyarılmıştın — Ders 3'te kittyler ve gökkuşakları yok!
 
-But a lot of densely-packed Solidity knowledge. We strongly recommended that you complete Lesson 2 before starting this one.
+Fakat birçok yoğun biçimde paketlenmiş Solidity bilgisi. Buna başlamadan önce Ders 2'yi bitirmenizi şiddetle öneriyoruz.
