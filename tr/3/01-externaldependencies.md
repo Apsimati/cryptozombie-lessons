@@ -1,6 +1,6 @@
 ---
-title: Immutability of Contracts
-actions: ['checkAnswer', 'hints']
+title: Kontratların Değişmezliği
+actions: ['cevapKontrol', 'ipuçları']
 requireLogin: true
 material:
   editor:
@@ -28,12 +28,12 @@ material:
 
         contract ZombieFeeding is ZombieFactory {
 
-          // 1. Remove this:
+          // 1. Bunu kaldır:
           address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
-          // 2. Change this to just a declaration:
+          // 2. Bunu bir bildiriye değiştirin:
           KittyInterface kittyContract = KittyInterface(ckAddress);
 
-          // 3. Add setKittyContractAddress method here
+          // 3. Buraya setKittyContractAddress yöntemi ekleyin
 
           function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
             require(msg.sender == zombieToOwner[_zombieId]);
@@ -141,34 +141,34 @@ material:
       }
 ---
 
-Up until now, Solidity has looked quite similar to other languages like JavaScript.  But there are a number of ways that Ethereum DApps are actually quite different from normal applications.
+Şu ana kadar, Solidity JavaScript gibi diğer dillere oldukça benzer gözüktü. Ancak Ethereum DApps'in normal uygulamalardan oldukça farklı olduğu çeşitli yollar var.
 
-To start with, after you deploy a contract to Ethereum, it’s **_immutable_**, which means that it can never be modified or updated again.
+İlk iş olarak, Ethereum'a bir kontrat açtıktan sonra, bu, hiçbir zaman değiştirilemez veya tekrar güncellenemez anlamında, **_sabittir_**.
 
-The initial code you deploy to a contract is there to stay, permanently, on the blockchain. This is one reason security is such a huge concern in Solidity.  If there's a flaw in your contract code, there's no way for you to patch it later. You would have to tell your users to start using a different smart contract address that has the fix.
+Kontrata uygulayacağınız başlangıç kodu blok zinciri üzerinde kalıcı olarak orada durur. Bu, Solidity'de güvenliğin bir endişe olmasının bir nedenidir.  Kontrat kodunuzda bir kusur varsa, onu daha sonra yama yapmanın bir yolu yoktur. Kullanıcılarınıza düzeltilmiş farklı bir akıllı kontrat adresi kullanarak başlatmasını söylemek zorunda olacaktınız.
 
-But this is also a feature of smart contracts. The code is law. If you read the code of a smart contract and verify it, you can be sure that every time you call a function it's going to do exactly what the code says it will do. No one can later change that function and give you unexpected results.
+Fakat bu ayrıca akıllı kontratın bir özelliğidir. Kod kuraldır. Bir akıllı kontratın kodunu okursanız ve doğrularsanız, bir fonksiyonu her çağırdığınızda kodun yapacağını söylediği şeyin aynısını her zaman yapacağından emin olabilirsiniz. Hiç kimse daha sonra bu fonksiyonu değiştiremez ve size beklenmedik sonuçlar veremez.
 
-## External dependencies
+## Harici bağlılıklar
 
-In Lesson 2, we hard-coded the CryptoKitties contract address into our DApp.  But what would happen if the CryptoKitties contract had a bug and someone destroyed all the kitties?
+Ders 2'de, CryptoKitties kontrat adresini DApp'imizin içine doğrudan kodladık. Peki CryptoKitties kontratında bir hata oluşsa ve birisi tüm kittiyleri yok etse ne olurdu?
 
-It's unlikely, but if this did happen it would render our DApp completely useless — our DApp would point to a hardcoded address that no longer returned any kitties. Our zombies would be unable to feed on kitties, and we'd be unable to modify our contract to fix it.
+Bu olasılık dışı, fakat bu olmuş olsa DApp'imizi kullanılmaz hale getirirdi — DApp'imiz artık herhangi bir kitty getirmeyen doğrudan kodlanmış bir adrese işaret edecekti. Zombilerimizin kittyleri besleme için gücü yetmeyecekti ve kontratımızı düzeltmek için değiştiremeyecektik.
 
-For this reason, it often makes sense to have functions that will allow you to update key portions of the DApp.
+Bu nedenle, DApp'in anahtar kısımlarını güncellemeye izin verecek fonksiyonların olması çoğu kez mantıklıdır.
 
-For example, instead of hard coding the CryptoKitties contract address into our DApp, we should probably have a `setKittyContractAddress` function that lets us change this address in the future in case something happens to the CryptoKitties contract.
+Örneğin, DApp'imizin içine CryptoKitties kontrat adresinin doğrudan kodlamak yerine, belki de gelecekte CryptoKitties kontratına bir şey olduğu durumda bu adresi değiştirmemize izin verecek bir `setKittyContractAddress` fonksiyonumzun olması gerekir.
 
-## Put it to the test
+## Teste koy
 
-Let's update our code from Lesson 2 to be able to change the CryptoKitties contract address.
+CryptoKitties kontrat adresini değiştirebilmekiçin Ders 2'den kodumuzu güncelleyelim.
 
-1. Delete the line of code where we hard-coded `ckAddress`.
+1. Doğrudan kodladığımız `ckAddress` kod satırını silin.
 
-2. Change the line where we created `kittyContract` to just declare the variable — i.e. don't set it equal to anything.
+2. Değişken ifade etmek için oluşturduğumuz `kittyContract` satırını değiştirin — örn.hiç bir şeye eşitlemeyin.
 
-3. Create a function called `setKittyContractAddress`. It will take one argument, `_address` (an `address`), and it should be an `external` function.
+3. `setKittyContractAddress` denilen bir fonksiyon oluşturun. Bir argüman alacaktır, `_address` (bir `address`) ve bir `external` fonksiyon olmalıdır.
 
-4. Inside the function, add one line of code that sets `kittyContract` equal to `KittyInterface(_address)`.
+4. Fonksiyon içine, `kittyContract`'ı `KittyInterface(_address)`'e eşitleyen bir kod satırı ekleyin.
 
-> Note: If you notice a security hole with this function, don't worry — we'll fix it in the next chapter ;)
+> Not: Bu fonksiyonla bir güvenlik açığı fark ederseniz, endişelenmeyin — onu sonraki bölümde düzelteceğiz ;)
