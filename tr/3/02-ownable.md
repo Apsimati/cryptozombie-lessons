@@ -1,6 +1,6 @@
 ---
-title: Ownable Contracts
-actions: ['checkAnswer', 'hints']
+title: Sahip Olunabilir Kontratlar
+actions: ['cevapKontrol', 'ipuçları']
 requireLogin: true
 material:
   editor:
@@ -9,9 +9,9 @@ material:
       "zombiefactory.sol": |
         pragma solidity ^0.4.19;
 
-        // 1. Import here
+        // 1. Buraya aktar
 
-        // 2. Inherit here:
+        // 2. Burada kalıt al:
         contract ZombieFactory {
 
             event NewZombie(uint zombieId, string name, uint dna);
@@ -97,9 +97,9 @@ material:
         }
       "ownable.sol": |
         /**
-         * @title Ownable
-         * @dev The Ownable contract has an owner address, and provides basic authorization control
-         * functions, this simplifies the implementation of "user permissions".
+         * @title Sahip Olunabilir
+         * @dev Sahip Olunabilir kontratın bir sahip adresi vardır temel yetkilendirme kontrol fonksiyonları
+         * sağlar, bu, "kulanıcı izinlerinin" uygulamasını basitleştirir.
          */
         contract Ownable {
           address public owner;
@@ -107,16 +107,16 @@ material:
           event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
           /**
-           * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-           * account.
+           * @dev Sahip olunabilir yapıcı orijinal kontrat `owner`'ı gönderici hesaba 
+           * ayarlar.
            */
           function Ownable() public {
             owner = msg.sender;
-          }
+          }  
 
 
           /**
-           * @dev Throws if called by any account other than the owner.
+           * @dev Sahibinden başka herhangi bir hesap tarafından çağrılırsa atılır.
            */
           modifier onlyOwner() {
             require(msg.sender == owner);
@@ -124,9 +124,9 @@ material:
           }
 
 
-          /**
-           * @dev Allows the current owner to transfer control of the contract to a newOwner.
-           * @param newOwner The address to transfer ownership to.
+          /** 
+           * @dev Kontratın bir newOwner'a transfer kontrolu için geçerli kullanıcıya izin verir.
+           * @param newOwner Sahiplik transferi yapılacak adres.
            */
           function transferOwnership(address newOwner) public onlyOwner {
             require(newOwner != address(0));
@@ -179,40 +179,40 @@ material:
       }
 ---
 
-Did you spot the security hole in the previous chapter?
+Önceki bölümdeki güvenlik açığını fark ettiniz miz?
 
-`setKittyContractAddress` is `external`, so anyone can call it! That means anyone who called the function could change the address of the CryptoKitties contract, and break our app for all its users.
+`setKittyContractAddress` `harici`'dir, yani herhangi biri onu çağırabilir! Bu, fonksiyonu çağıran kimse CryptoKitties kontrat adresini değiştirebilir ve uygulamamızı kendi kullanıcıları için kırabilirler anlamına gelir.
 
-We do want the ability to update this address in our contract, but we don't want everyone to be able to update it.
+Yeterliğin kontratımızda bu adresi güncellemesini istiyoruz ama herkesin onu güncelleyebilmesini istemiyoruz.
 
-To handle cases like this, one common practice that has emerged is to make contracts `Ownable` — meaning they have an owner (you) who has special privileges.
+Bunun gibi durumları halletmek için, meydana çıkmış ortak bir uygulama kontratları `Sahip Olunabilir` yapmaktır — onların özel ayrıcalıkları olan bir sahiplerinin (siz) olduğu anlamına geliyor.
 
-## OpenZeppelin's `Ownable` contract
+## OpenZeppelin'in `Sahip Olunabilir` kontratı
 
-Below is the `Ownable` contract taken from the **_OpenZeppelin_** Solidity library. OpenZeppelin is a library of secure and community-vetted smart contracts that you can use in your own DApps. After this lesson, while you anxiously await the release of Lesson 4, we highly recommend you check out their site to further your learning!
+Aşağıdaki **_OpenZeppelin_** Solidity kütüphanesinden alınmış `Sahip Olunabilir` kontrattır. OpenZeppelin, kendi DApps'inizde kullanabileceğiniz güvenlik ve topluluk incelemeli bir kütüphanedir. Bu dersten sonra, Ders 4'ün çıkarılmasını iple çekerken, öğreniminizi ilerletmek için sitelerini kontrol etmenizi önemle tavsiye ederiz!
 
-Give the contract below a read-through. You're going to see a few things we haven't learned yet, but don't worry, we'll talk about them afterward.
+Aşağıdaki kontratı baştan aşağı okuyun. Henüz öğrenmediğimiz birkaç şey göreceksiniz ama endişelenmeyin, onlardan sonra bahsedeceğiz.
 
 ```
 /**
- * @title Ownable
- * @dev The Ownable contract has an owner address, and provides basic authorization control
- * functions, this simplifies the implementation of "user permissions".
+ * @title Sahip Olunabilir
+ * @dev Sahip Olunabilir kontratın bir sahip adresi vardır temel yetkilendirme kontrol fonksiyonları
+ * sağlar, bu, "kulanıcı izinlerinin" uygulamasını basitleştirir.
  */
 contract Ownable {
   address public owner;
   event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
   /**
-   * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-   * account.
+   * @dev Sahip olunabilir yapıcı orijinal kontrat `owner`'ı gönderici hesaba 
+   * ayarlar.
    */
   function Ownable() public {
     owner = msg.sender;
   }
 
   /**
-   * @dev Throws if called by any account other than the owner.
+   * @dev Sahibinden başka herhangi bir hesap tarafından çağrılırsa atılır.
    */
   modifier onlyOwner() {
     require(msg.sender == owner);
@@ -220,8 +220,8 @@ contract Ownable {
   }
 
   /**
-   * @dev Allows the current owner to transfer control of the contract to a newOwner.
-   * @param newOwner The address to transfer ownership to.
+   * @dev Kontratın bir newOwner'a transfer kontrolu için geçerli kullanıcıya izin verir.
+   * @param newOwner Sahiplik transferi yapılacak adres.
    */
   function transferOwnership(address newOwner) public onlyOwner {
     require(newOwner != address(0));
@@ -231,28 +231,28 @@ contract Ownable {
 }
 ```
 
-A few new things here we haven't seen before:
+Daha önce görmediğimiz birkaç şey burada:
 
-- Constructors: `function Ownable()` is a **_constructor_**, which is an optional special function that has the same name as the contract. It will get executed only one time, when the contract is first created.
-- Function Modifiers: `modifier onlyOwner()`. Modifiers are kind of half-functions that are used to modify other functions, usually to check some requirements prior to execution. In this case, `onlyOwner` can be used to limit access so **only** the **owner** of the contract can run this function. We'll talk more about function modifiers in the next chapter, and what that weird `_;` does.
-- `indexed` keyword: don't worry about this one, we don't need it yet.
+- Yapıcılar: `function Ownable()` kontrat ile aynı isme sahip opsiyonel bir özel fonksiyon olan bir **_yapıcıdır_**. Kontrat ilk oluşturulduğunda, sadece bir kere gerçekleştirilecektir.
+- Fonksiyon Değiştiriciler: `modifier onlyOwner()`. Değiştiriciler diğer fonksiyoları değiştirmek için kullanılan yarı fonksiyon türleridir, çoğunlukla bazı öncelikli gereklilikleri uygulamak için  kullanılırlar. Bu durumda, `onlyOwner` erişimi sınırlamak için kullanılabilir böylelikle **sadece** kontrat **sahibi** bu fonksiyonu çalıştırabilir. Sonraki bölümde fonksiyon değiştiriciler ve garip şeyin `_;` ne yaptığı hakkında daha fazla konuşacağız.
+- `indexed` anahtar kelimesi: bunun hakkında endişelenme, ona henüz ihtiyacımız yok.
 
-So the `Ownable` contract basically does the following:
+Yani `Sahip Olunabilir` kontrat temel olarak aşağıdakileri yapar:
 
-1. When a contract is created, its constructor sets the `owner` to `msg.sender` (the person who deployed it)
+1. Bir kontrat oluşturulduğunda, yapıcısı `owner`'ı `msg.sender`'a ayarlar (onu yayan kişi)
 
-2. It adds an `onlyOwner` modifier, which can restrict access to certain functions to only the `owner`
+2. Belirli fonksiyona sadece `owner` için erişim sınırlayabilecek bir `onlyOwner` ekler
 
-3. It allows you to transfer the contract to a new `owner`
+3. Kontrarı yeni bir `owner`a transfer etmenize izin verir
+ 
+`onlyOwner` çoğu Solidity DApps'in bu `Ownable` kontratın bir kopyala/yapıştırı ile başlattığı kontratlar için müşterek bir ihtiyaç gibidir ve sonra ilk kontratı miras olarak ondan alır.
 
-`onlyOwner` is such a common requirement for contracts that most Solidity DApps start with a copy/paste of this `Ownable` contract, and then their first contract inherits from it.
+`setKittyContractAddress`'i `onlyOwner`'a sınırlamak istediğimizde, kontratımız için aynısını yapacağız.
 
-Since we want to limit `setKittyContractAddress` to `onlyOwner`, we're going to do the same for our contract.
+## Teste koy
 
-## Put it to the test
+Devam edip `Ownable` kontrat kodunu yeni bir dosyaya, `ownable.sol`'a kopyalamıştık. Devam edelim ve `ZombieFactory`'yi ondan miras olarak alan yapalım.
 
-We've gone ahead and copied the code of the `Ownable` contract into a new file, `ownable.sol`. Let's go ahead and make `ZombieFactory` inherit from it.
+1. Kodumuzu `ownable.sol` içeriğini `import` etmek için değiştirin. Bunun nasıl yapıldığını hatırlamıyorsanız `zombiefeeding.sol`'a bir göz atın.
 
-1. Modify our code to `import` the contents of `ownable.sol`. If you don't remember how to do this take a look at `zombiefeeding.sol`.
-
-2. Modify the `ZombieFactory` contract to inherit from `Ownable`. Again, you can take a look at `zombiefeeding.sol` if you don't remember how this is done.
+2. `ZombieFactory`'yi `Ownable`'dan miras alan olarak değiştirin. Tekrar, bunun nasıl yapıldığını hatırlamıyorsanız `zombiefeeding.sol`'a göz atabilirsiniz.
